@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+body{
+    font-family: "Inter", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Typography */
+.display-text-lg {
+    font-size: 64px;       /* Font size */
+    line-height: 72px;     /* Line height */
+    letter-spacing: 8%;    /* Letter spacing */
+    font-weight: 700;     /* 700 font weight */
+}
+
+.display-text-md {
+    font-size: 48px;       /* Font size */
+    line-height: 56px;     /* Line height */
+    letter-spacing: 8%;    /* Letter spacing */
+    font-weight: 700;     /* 700 font weight */
+}
+
+.display-text-sm {
+    font-size: 36px;       /* Font size */
+    line-height: 44px;     /* Line height */
+    letter-spacing: 8%;    /* Letter spacing */
+    font-weight: 700;     /* 700 font weight */
+}
+
+.headline-text-lg {
+    font-size: 32px;       /* Font size */
+    line-height: 40px;     /* Line height */
+    letter-spacing: 5%;    /* Letter spacing */
+    font-weight: 600;     /* semi700 font weight */
+}
+
+.headline-text-md {
+    font-size: 24px;       /* Font size */
+    line-height: 32px;     /* Line height */
+    letter-spacing: 5%;    /* Letter spacing */
+    font-weight: 600;     /* semi700 font weight */
+}
+
+.headline-text-sm {
+    font-size: 20px;       /* Font size */
+    line-height: 28px;     /* Line height */
+    letter-spacing: 5%;    /* Letter spacing */
+    font-weight: 600;     /* semi700 font weight */
+}
+
+.headline-text-xs{
+    font-size: 12px;       /* Font size */
+    line-height: 16px;     /* Line height */
+    letter-spacing: 0.5px;    /* Letter spacing */
+    font-weight: 600;     /* semi700 font weight */
+}
+
+.body-text-lg {
+    font-size: 18px;       /* Font size */
+    line-height: 28px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 400;     /* normal font weight */
+}
+
+.body-text-md {
+    font-size: 16px;       /* Font size */
+    line-height: 23px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 400;     /* normal font weight */
+}
+
+.body-text-sm {
+    font-size: 14px;       /* Font size */
+    line-height: 20px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 400;     /* normal font weight */
+}
+
+.body-text-xs{
+    font-size: 10px;       /* Font size */
+    line-height: 16px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 400;     /* normal font weight */
+}
+
+.body2-text-lg {
+    font-size: 18px;       /* Font size */
+    line-height: 28px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 600;     /* semibold font weight */
+}
+
+.body2-text-md {
+    font-size: 16px;       /* Font size */
+    line-height: 24px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 600;     /* semibold font weight */
+}
+
+.body2-text-sm {
+    font-size: 14px;       /* Font size */
+    line-height: 20px;     /* Line height */
+    letter-spacing: 3%;    /* Letter spacing */
+    font-weight: 600;     /* semibold font weight */
+}
+
+.label-text-lg {
+    font-size: 16px;       /* Font size */
+    line-height: 24px;     /* Line height */
+    letter-spacing: 1%;    /* Letter spacing */
+    font-weight: 500;     /* 500 font weight */
+}
+
+.label-text-md {
+    font-size: 14px;       /* Font size */
+    line-height: 20px;     /* Line height */
+    letter-spacing: 1%;    /* Letter spacing */
+    font-weight: 500;     /* 500 font weight */
+}
+
+.label-text-sm {
+    font-size: 12px;       /* Font size */
+    line-height: 16px;     /* Line height */
+    letter-spacing: 1%;    /* Letter spacing */
+    font-weight: 500;     /* 500 font weight */
+}
+
+.placeholder-text {
+    font-size: 16px;       /* Font size */
+    line-height: 24px;     /* Line height */
+    letter-spacing: 5%;    /* Letter spacing */
+}
+
+.caption-text {
+    font-size: 12px;       /* Font size */
+    line-height: 16px;     /* Line height */
+    letter-spacing: 5%;    /* Letter spacing */
+}
+
+/* Color */
+:root {
+    /* Primary Colors */
+    --primary: #0080FF;
+    --primary-light: #79BCFF;
+    --primary-dark: #024DA6;
+
+    /* Accent Colors */
+    --accent-yellow: #FFB300;
+    --accent-yellow-light: #FFD44A;
+    --accent-red: #FF0000;
+    --accent-red-light: #F17C7C;
+    --accent-blue: #669BCB;
+    --accent-blue-light: #D6E9FF;
+
+    /* Status Colors */
+    --success: #157A47;
+    --success-light: #CFF3E1;
+    --warning: #FFB300;
+    --warning-light: #FFECB4;
+    --error: #B02A37;
+    --error-light: #FAD2D4;
+    --error-dark: #1B4820;
+    --error-dark-light: #E2FCEB;
+
+    /* Neutral Colors */
+    --text-primary: #323133;
+    --text-secondary: #606060;
+    --text-placeholder: #A0A0A0;
+    --border-neutral: #D0D0D0;
+    --neutral-light: #F2F2F2;
+    --background-light: #F8F8F9;
+
+    /* Background Colors Z*/
+    --background: #E9EFF7;
+    --card-bg: #FFFFFF;
+    --side-menu-bg: #021C4A;
+
+    /* Icon Colors */
+    --gradient-red: linear-gradient(90deg, #FF3233, #FF0000);
+    --gradient-blue: linear-gradient(90deg, #79BCFF, #0080FF);
+    --gradient-blue-reverse: linear-gradient(90deg, #79BCFF, #0080FF);
+    --warning-gray: #A0A0A0;
+
+    /* Chart Colors */
+    --chart-blue: #3253FF;
+    --chart-red: #FF6060;
+    --chart-yellow: #FFC34A;
+    --chart-green: #22CF5F;
+    --chart-purple: #AF82FF;
+}
+
+/* Button */
+/* Large Button*/
+.button-lg {
+    width: 350px;
+    height: 48px;
+    border-radius: 5px;
+    padding: 14px 12px;
+    border: 0.5px solid #D6D6D6;
+}
+
+.button-lg:hover {
+    border: 1px solid #A0A0A0;
+}
+
+/* Medium Button*/
+.button-md {
+    width: 180px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 14px 12px;
+    border: 0.5px solid #D6D6D6;
+}
+
+.button-md:hover {
+    border: 1px solid #A0A0A0;
+}
+
+/* Small Button*/
+.button-sm {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 14px 12px;
+    border: 0.5px solid #D6D6D6;
+}
+
+.button-sm:hover {
+    border: 1px solid #A0A0A0;
+}
+
+/* Primary Button Small */
+.button-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.button-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+/* Primary Outline Button */
+.button-outline-primary {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 14px 12px;
+    border: 0.5px solid var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+}
+
+.button-outline-primary:hover {
+    background-color: var(--primary-light);
+    color: var(--text-white);
+    border: 0.5px solid var(--primary-dark);
+}
+
+/* Large Button */
+.button-large {
+    background-color: var(--primary);
+    color: var(--text-white);
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+}
+
+.button-large:hover {
+    background-color: var(--primary-dark);
+}
+
+
+
+/* Light Button */
+.button-light {
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+
+.button-light:hover {
+    background-color: var(--primary);
+    color: var(--text-white);
+}
+
+
+/* Shadow */
+.shadow-xs {
+    box-shadow: 0px 1px 3px 1px #00000026,
+                0px 4px 4px 0px #00000040;    
+}
+
+.shadow-sm {
+    box-shadow: 0px 2px 6px 2px #00000026, 
+                0px 1px 2px 0px #0000004D;
+}
+
+.shadow-md {
+    box-shadow: 0px 1px 3px 0px #0000004D,
+                0px 4px 8px 3px #00000026;
+}
+
+.shadow-lg {
+    box-shadow: 0px 2px 3px 0px #0000004D,
+                0px 6px 10px 4px #00000026;
+}
+
+.shadow-xl {
+    box-shadow: 0px 8px 12px 6px #00000026,
+                0px 4px 4px 0px #00000040;
+}
