@@ -2,7 +2,7 @@
     <p class="label-text-md text-left mt-4">{{ label }}</p>
     <div class="relative">
         <input :type="computedInputType" class="textbox" :class="{ 'has-error': errorMessage }"
-            :placeholder="placeholder" :value="modelValue" @input="handleInput" @focus="clearError" />
+            :placeholder="placeholder" :value="modelValue" @focus="clearError" @input="handleInput" />
 
         <span v-if="icon" class="material-icons input-icon ">{{ icon }}</span>
 
@@ -41,6 +41,16 @@ const computedInputType = computed(() =>
     props.toggleIcon && showPassword.value ? "text" : props.inputType
 );
 
+// password visibility
+function toggleVisibility() {
+    showPassword.value = !showPassword.value;
+}
+
+// if onfocus, clear errorMessage
+function clearError() {
+    emit("update:errorMessage", "");
+}
+
 // validate upon input
 function handleInput(event) {
     const value = event.target.value;
@@ -58,33 +68,23 @@ function validate(value) {
 
         if (!value) {
             error = "Email is required.";
-        } 
+        }
         else if (!emailPattern.test(value)) {
             error = "Invalid email format.";
         }
 
     } else if (props.inputType === "password") {
         const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        
+
         if (!value) {
             error = "Password is required.";
-        } 
-        else if (passwordPattern.test(value)) {
+        }
+        else if (!passwordPattern.test(value)) {
             error = "Password must contain at least 8 alphanumeric with 1 uppercase letter, 1 lowercase letter, 1 number, 1 special characters ";
         }
-    }
-    emit("update:errorMessage", error);
+    } emit("update:errorMessage", error);
 }
 
-// password visibility
-function toggleVisibility() {
-    showPassword.value = !showPassword.value;
-}
-
-// if onfocus, clear errorMessage
-function clearError() {
-    emit("update:errorMessage", "");
-}
 </script>
 
 <style>

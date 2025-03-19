@@ -360,5 +360,105 @@ body{
    ========================= */
 .navbar {
     background-color: var(--primary);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    position: sticky;
+    top: 0%;
 }
 
+/* =========================
+   Region: Account Form 
+   ========================= */
+   .error-container {
+    background-color: var(--error-light);
+    color: var(--accent-red);
+    height: 60px;
+    width: 450px;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.error-container p {
+    line-height: 1.1;
+    /* Adjust this value as needed */
+}
+
+.login-form {
+    background-color: white;
+    border-radius: 8px;
+    height: 400px;
+    width: 450px;
+    padding: 50px;
+}
+
+.account-form {
+    background-color: white;
+    border-radius: 8px;
+    height: 350px;
+    width: 450px;
+    padding: 50px;
+}
+
+/* Checkbox label */
+.checkbox-label {
+    font-size: 14px;
+    color: #333333;
+    cursor: pointer;
+}
+
+/* Checkbox input */
+.checkbox-input {
+    margin-right: 8px;
+    cursor: pointer;
+    border-color: #D6D6D6;
+}
+
+.login-button {
+    display: flex;
+    justify-content: center;
+    margin: 5px auto;
+}
+
+.account-button{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+/* Account Navigate  link */
+.nav-link {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: #0080FF;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/*Timer*/
+.timer {
+    text-align: right;
+    color: #000000;
+    font-size: 14px;
+    margin-right: 6px;
+  }
+  
+  /* Resend */
+  .resend {
+    text-align: right;
+    color: #0080FF;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-right: 6px;
+  }

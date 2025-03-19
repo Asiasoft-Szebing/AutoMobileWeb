@@ -3,7 +3,8 @@
 
         <!-- Error Container-->
         <div class="error-container" v-if="errorMessage">
-            <p class="body2-text-lg">{{ errorMessage }}</p>
+            <span class="material-icons">warning</span>
+            <p class="ml-2">{{ errorMessage }}</p>
         </div>
 
         <!-- Login Form -->
@@ -13,11 +14,11 @@
 
             <!-- Email -->
             <InputTextbox label="Email" inputType="email" placeholder="Enter your email" v-model="email" icon="mail"
-                :errorMessage="emailError" @update:errorMessage="emailError = $event" />
+                :errorMessage="emailError" />
 
             <!--Password  -->
             <InputTextbox label="Password" inputType="password" placeholder="Enter your password" v-model="password"
-                toggleIcon :errorMessage="passwordError" @update:errorMessage="passwordError = $event" />
+                :errorMessage="passwordError" toggleIcon />
 
             <!-- Remember Me -->
             <div class="my-4 flex align-items-center">
@@ -29,13 +30,13 @@
             <button type="submit" class="login-button button-md button-primary">Login</button>
 
             <!-- Forgot Password Link -->
-            <RouterLink to="/Account/ForgotPassword" class="forgot-password"> Forgot Password</RouterLink>
+            <RouterLink to="/Account/ForgotPassword" class="nav-link"> Forgot Password</RouterLink>
         </form>
     </PlainLayout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import PlainLayout from '/src/layout/PlainLayout.vue'
 import InputTextbox from '../../components/InputTextbox.vue';
 
@@ -45,23 +46,35 @@ const emailError = ref('');
 const passwordError = ref('');
 const rememberMe = ref(false);
 
-const errorMessage = () => {
-    if (emailError.value)
-        errorMessage.value = emailError.value;
-
-    if (passwordError.value)
-        errorMessage.value = passwordError.value;
-};
+const errorMessage = computed(() => {
+    return emailError.value || passwordError.value || ""
+});
 
 // Handle login
 const handleLogin = async () => {
     // Reset error messages
     emailError.value = "";
     passwordError.value = "";
-    errorMessage.value = "";
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    //check email
+    if (!email.value) {
+        emailError.value = "Email is required.";
+    }
+    else if (!emailPattern.test(email.value)) {
+        emailError.value = "Invalid email format.";
+    }
+    //check password
+    else if (!password.value) {
+        passwordError.value = "Password is required.";
+    }
+    else if (!passwordPattern.test(password.value)) {
+        passwordError.value = "Password must contain at least 8 alphanumeric with 1 uppercase letter, 1 lowercase letter, 1 number, 1 special characters ";
+    }
 
     // If any validation errors, do not proceed
-    if (emailError.value || passwordError.value) return;
+    if (errorMessage.value) return;
 
     try {
         // API call to login endpoint
@@ -80,62 +93,9 @@ const handleLogin = async () => {
         // const data = await response.json();
 
         // Navigate to dashboard on successful login
-        router.push("/dashboard");
+        //router.push("/Dashboard");
     } catch (error) {
-        errorMessage.value = error.message;
+        console.log(error);
     }
 };
 </script>
-
-<style>
-.error-container {
-    background-color: var(--error-light);
-    color: var(--accent-red);
-    height: 50px;
-    width: 450px;
-    border-radius: 8px;
-    padding: 8px;
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.login-form {
-    background-color: white;
-    border-radius: 8px;
-    height: 400px;
-    width: 450px;
-    padding: 50px;
-}
-
-/* Checkbox label */
-.checkbox-label {
-    font-size: 14px;
-    color: #333333;
-    cursor: pointer;
-}
-
-/* Checkbox input */
-.checkbox-input {
-    margin-right: 8px;
-    cursor: pointer;
-    border-color: #D6D6D6;
-}
-
-.login-button {
-    display: flex;
-    justify-content: center;
-    margin: 5px auto;
-}
-
-/* Forgot password link */
-.forgot-password {
-    display: flex;
-    justify-content: center;
-    margin: 5px auto;
-    text-align: center;
-    color: #0080FF;
-    font-size: 14px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-</style>
