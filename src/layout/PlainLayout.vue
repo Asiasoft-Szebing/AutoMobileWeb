@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen flex flex-col items-center justify-center bg-[#EBF5FF]">
+    <div class="min-h-screen flex flex-col items-center justify-center">
         <!-- Logo -->
         <img :src="logo" class="w-24 h-24 mb-6" />
         <!-- Form -->

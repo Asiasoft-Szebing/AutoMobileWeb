@@ -75,22 +75,7 @@ const selectedMetrics = ref([]);
 </template>
 
 <style>
-.modal-container {
-    height: 360px;
-    width: 500px;
-    background-color: #FFFFFF;
-    padding: 0px;
-    border: 1px #D6D6D6;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px 0px #0000001A;
 
-}
-
-.modal-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #000000;
-}
 
 hr {
     color: #E3E8EE;

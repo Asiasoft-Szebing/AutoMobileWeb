@@ -1,19 +1,17 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 bg-overlay flex justify-center items-center z-50">
-        <div class="bg-white p-4 rounded shadow-md relative w-80">
+    <div v-if="isOpen" class="modal-overlay">
+        <div class="modal-container ">
             <!-- Close Button -->
             <button @click="handleCancel" class="absolute top-2 right-2">
-                <span class="material-symbols-outlined">
-                    close
-                </span>
-             </button>
-            <h2 class="text-xl font-bold mb-4">{{ title }}</h2>
-            <p class="text-gray-700 mb-6">{{ message }}</p>
-            <div class="flex justify-end space-x-4">
-                <button @click="handleCancel" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300">
+                <span class="material-icons"> close </span>
+            </button>
+            <h2 class="headline-text-md mb-4">{{ title }}</h2>
+            <p class="body-text-md text-[#666666] mb-6">{{ message }}</p>
+            <div class="modal-button-group ">
+                <button @click="handleCancel" class="button-sm button-cancel mr-3">
                     Cancel
                 </button>
-                <button @click="handleConfirm" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                <button @click="handleConfirm" class="button-sm button-primary">
                     Confirm
                 </button>
             </div>

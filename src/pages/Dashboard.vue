@@ -1,8 +1,8 @@
 <template>
     <MainLayout>
         <!-- Customization Modal -->
-        <CustomizeOverviewModal :isOpen="showCustomizeModal" :Metrics="availableMetrics" @close="closeCustomizeOverview"
-            @updateMetrics="updateMetrics" />
+        <!-- <CustomizeOverviewModal :isOpen="showCustomizeModal" :Metrics="availableMetrics" @close="closeCustomizeOverview"
+            @updateMetrics="updateMetrics" /> -->
     </MainLayout>
 </template>
 <script setup>

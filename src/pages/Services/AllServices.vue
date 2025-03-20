@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue';
 import MainLayout from '../../layout/MainLayout.vue';
 import Pagination from '../../components/Pagination.vue';
-import { Edit, ListFilter, Plus, Search, Trash2 } from 'lucide-vue-next';
 
 const searchQuery = ref('');
 const currentPage = ref(1);
@@ -24,7 +23,6 @@ const filteredServices = computed(() => {
     service.name.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
 });
-
 </script>
 
 <template>
