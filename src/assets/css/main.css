@@ -155,7 +155,7 @@ body {
 .body-text-md {
     font-size: 16px;
     /* Font size */
-    line-height: 23px;
+    line-height: 24px;
     /* Line height */
     letter-spacing: 3%;
     /* Letter spacing */
@@ -275,7 +275,7 @@ body {
 /* Large Button*/
 .button-lg {
     width: 350px;
-    height: 48px;
+    height: 55px;
     border-radius: 5px;
     padding: 8px;
     border: 0.5px solid var(--border-neutral);
@@ -289,7 +289,7 @@ body {
 .button-md {
     margin: auto auto;
     width: 180px;
-    height: 40px;
+    height: 45px;
     border-radius: 5px;
     padding: 8px;
     border: 0.5px solid var(--border-neutral);
@@ -302,7 +302,7 @@ body {
 /* Small Button*/
 .button-sm {
     width: 100px;
-    height: 40px;
+    height: 45px;
     border-radius: 5px;
     padding: 8px;
     border: 0.5px solid var(--border-neutral);
@@ -341,11 +341,15 @@ body {
 
 /* icon button */
 .button-icon {
-    height: 25px;
-    width: 25px;
-    padding: 4px;
+    height: 35px;
+    width: 35px;
+    padding: 8px;
     border: 0.5px solid var(--border-neutral);
     border-radius: 5px;
+    display: flex;              /* Use flexbox */
+    align-items: center;        /* Center vertically */
+    justify-content: center;    /* Center horizontally */
+    box-sizing: border-box;     /* Include padding and border in the size */
 }
 
 /* primary icon button */
@@ -357,6 +361,17 @@ body {
 .button-icon-primary:hover {
     background-color: var(--accent-blue);
     color: white;
+}
+
+/* default button */
+.button-default {
+    background-color: var(--neutral-light);
+    color: #000000;
+}
+
+.button-default:hover {
+    background-color: var(--text-secondary);
+    color: var(--card-bg);
 }
 
 /* warning button */
@@ -396,7 +411,7 @@ body {
 .textbox {
     background-color: white;
     border: 1px solid var(--border-neutral);
-    height: 40px;
+    height: 45px;
     width: 350px;
     padding: 12px;
 }
@@ -604,11 +619,9 @@ body {
 .active-closed {
     background-color: var(--primary-dark);
     border-left: 4px solid white;
-    padding: 10px 0px;
 }
 
 .children-menu {
-    padding: 0px 20px;
     font-size: 14px;
 }
 
@@ -618,7 +631,17 @@ body {
     color: var(--card-bg);
     transition: all;
     transition-duration: 0.3s;
-    padding: 10px 0px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+}
+
+.active-open .bullet {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 1px;
+    margin-right: 15px;
 }
 
 .bullet {
@@ -697,7 +720,7 @@ body {
 .login-form {
     background-color: white;
     border-radius: 8px;
-    height: 400px;
+    height: 450px;
     width: 450px;
     padding: 50px;
 }
@@ -706,6 +729,14 @@ body {
     background-color: white;
     border-radius: 8px;
     height: 350px;
+    width: 450px;
+    padding: 50px;
+}
+
+.newpassword-form {
+    background-color: white;
+    border-radius: 8px;
+    height: 400px;
     width: 450px;
     padding: 50px;
 }

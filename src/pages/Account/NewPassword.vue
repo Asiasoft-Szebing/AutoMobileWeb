@@ -7,7 +7,7 @@
         </div>
 
         <!-- Reset Password Form -->
-        <form class="account-form shadow-xl">
+        <form class="newpassword-form shadow-xl">
             <p class="headline-text-md mb-2"> Reset Your Password </p>
             <p class="body-text-md text-[#666666] mb-4"> Enter a new password </p>
             <!-- New Password -->

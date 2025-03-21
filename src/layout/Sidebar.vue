@@ -30,6 +30,7 @@
                                 (item.child && item.child.some(child => $route.path === child.path)) ? (
                                 isSidebarOpen ? (item.child ? '' : 'active-open') : 'active-closed') : '')]"
                             @click="handleParentClick(item, $event)">
+
                             <!-- Icon -->
                             <span class="material-icons transition-transform duration-300"
                                 :class="isSidebarOpen ? 'w-5 h-5 mr-3' : 'w-8 h-5 mx-auto'">{{ item.icon }}</span>
@@ -61,6 +62,7 @@
 </template>
 
 <script setup>
+import { path } from "framer-motion/client";
 import { ref, reactive, provide, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 
@@ -106,6 +108,7 @@ const handleParentClick = (item, event) => {
 };
 
 const getParentHref = (item) => {
+    console.log(item.child);
     if (!isSidebarOpen.value && item.child) {
         return item.child[0].path;
     }
@@ -135,7 +138,7 @@ onMounted(() => {
 const menuSections = [
     {
         title: null,
-        items: [{ name: "Dashboard", label: "Dashboard", icon: "dashboard" }],
+        items: [{ name: "Dashboard", label: "Dashboard", icon: "dashboard", path:"/dashboard" }],
     },
     {
         title: "OPERATIONS",
@@ -148,7 +151,7 @@ const menuSections = [
                     {
                         name: "AllServices",
                         label: "All Services",
-                        path: "services/allservices",
+                        path: "/services/allservices",
                     },
                     {
                         name: "ServiceVariation",
@@ -165,7 +168,7 @@ const menuSections = [
                     {
                         name: "AllAppointments",
                         label: "All Appointments",
-                        path: "/appointment/all",
+                        path: "/appointment/appointmentlist",
                     },
                 ],
             },

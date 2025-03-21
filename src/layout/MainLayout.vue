@@ -3,7 +3,7 @@
       <Sidebar />
       <div class="flex-1">
         <Navbar />
-        <div class="p-4 min-h-[calc(100vh-4rem)]">
+        <div class="px-20 py-15 min-h-[calc(100vh-4rem)]">
           <slot />
         </div>
       </div>
