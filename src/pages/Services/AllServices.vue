@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import MainLayout from '../../layout/MainLayout.vue';
+import FilterDialog from '../../components/FilterDialog.vue';
 import Pagination from '../../components/Pagination.vue';
 
 const searchQuery = ref('');
@@ -15,25 +16,69 @@ const services = ref([
     { id: 5, name: 'Windshield Crack Repair', category: 'Repair & Fixing', price: '400.00', duration: '1 Day', active: false },
 ]);
 
+// Filter Function
+const selectedStatus = ref(['All Status']);
+const selectedCategory = ref(['All Category']);
+const showFilter = ref(false);
+
+const openFilter = () => {
+    showFilter.value = true;
+}
+
+const closeFilter = () => {
+    showFilter.value = false;
+}
+
+// Handle applied filter 
+const applyFilter = ({ status, category }) => {
+    selectedStatus.value = status;
+    selectedCategory.value = category;
+    closeFilter();
+};
+
+// Search Function
 const filteredServices = computed(() => {
-    if (!searchQuery.value) {
-        return services.value;
-    }
-    return services.value.filter(service =>
-        service.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
+    return services.value.filter(service => {
+        const matchName = !searchQuery.value || service.name.toLowerCase().includes(searchQuery.value.toLowerCase());
+
+        const matchStatus = selectedStatus.value.length === 0 ||
+            selectedStatus.value.includes('All Status') ||
+            (selectedStatus.value.includes('Active') && service.active) ||
+            (selectedStatus.value.includes('Inactive') && !service.active);
+
+        const matchCategory = selectedCategory.value.length === 0 ||
+            selectedCategory.value.includes('All Category') ||
+            selectedCategory.value.includes(service.category);
+
+        return matchName && matchStatus && matchCategory;
+    });
 });
+
+
+// Calculate total pages based on filtered services
+const totalPages = computed(() => {
+    return Math.ceil(filteredServices.value.length / pageSize.value);
+});
+
+// Handle page change from pagination component
+const onPageChange = (newPage) => {
+    currentPage.value = newPage;
+};
 </script>
 
 <template>
     <MainLayout>
+        <!-- Filter Dialog-->
+        <FilterDialog :isOpen="showFilter" :Status="selectedStatus" :Category="selectedCategory" @close="closeFilter"
+            @apply="applyFilter" />
+        <!-- Main -->
         <div class="flex justify-between items-center mb-4">
             <!-- Title-->
             <h2 class="headline-text-md">Services</h2>
             <!-- Button -->
             <div class="flex gap-4">
                 <!-- Filter Button -->
-                <button class="flex items-center gap-1 justify-center button-sm button-default">
+                <button class="flex items-center gap-1 justify-center button-sm button-default" @click="openFilter">
                     <span class="material-icons">filter_list</span>
                     <span>Filter</span>
                 </button>
@@ -44,18 +89,14 @@ const filteredServices = computed(() => {
                 </button>
             </div>
         </div>
-        <div class="flex justify-between items-center my-8">
-            <!-- Search -->
-            <div class="relative">
-                <span class="material-icons search-icon">search</span>
-                <input type="text" class="search-textbox" placeholder="Search by service name" v-model="searchQuery">
-                </input>
-            </div>
-            <!-- Show results -->
-            <!-- <p class="table-result"> Showing 1-10 of 36 results</p> -->
+        <!-- Search -->
+        <div class="relative my-8">
+            <span class="material-icons search-icon">search</span>
+            <input type="text" class="search-textbox" placeholder="Search by service name" v-model="searchQuery">
+            </input>
         </div>
-
-        <table>
+        <!--Table-->
+        <table class="table-primary">
             <thead class="body-text-md">
                 <tr>
                     <th>Service Name</th>
@@ -73,14 +114,15 @@ const filteredServices = computed(() => {
                     <td>From {{ service.price }}</td>
                     <td>
                         <template v-if="service.duration === 'Click to View'">
-                            <a href="#" class="text-blue-500 underline">{{ service.duration }}</a>
+                            <a href="#" class="text-[var(--primary)] underline">{{ service.duration }}</a>
                         </template>
                         <template v-else>
                             <p>{{ service.duration }}</p>
                         </template>
                     </td>
                     <td class="p-2">
-                        <span :class="service.active ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'"
+                        <span
+                            :class="service.active ? 'status-success-chip body-text-sm' : 'status-error-chip body-text-sm'"
                             class="px-2 py-1 rounded-sm">
                             {{ service.active ? 'Active' : 'Inactive' }}
                         </span>
@@ -99,65 +141,7 @@ const filteredServices = computed(() => {
 
         <hr />
 
-        <Pagination :total="filteredServices.length" :pageSize="pageSize" :currentPage="currentPage" />
+        <Pagination :total="filteredServices.length" :pageSize="pageSize" :currentPage="currentPage"
+            :totalPages="totalPages" @page-change="onPageChange" />
     </MainLayout>
 </template>
-
-<style>
-/* Textbox */
-.search-textbox {
-    background-color: white;
-    border: 1px solid var(--border-neutral);
-    height: 40px;
-    width: 350px;
-    padding: 20px 50px;
-}
-
-.search-textbox:focus {
-    outline: none;
-    border: 1px solid #0080FF;
-}
-
-/* Icon in input field */
-.search-icon {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #A0A0A0;
-    width: 20px;
-    height: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    outline: 1px solid var(--border-neutral);
-    min-width: 100%;
-}
-
-th {
-    text-align: left;
-    background-color: var(--background-light);
-    padding: 24px;
-    border-bottom: 1px solid var(--border-neutral);
-}
-
-td {
-    text-align: left;
-    background-color: var(--card-bg);
-    padding: 24px;
-    border-bottom: 1px solid var(--border-neutral);
-}
-
-.edit-icon,
-.delete-icon {
-    height: 5px;
-    width: 5px;
-}
-
-hr {
-    color: var(--border-neutral);
-    padding: 0px;
-    margin: 30px 0px;
-}
-</style>

@@ -80,7 +80,7 @@ body {
     /* Font size */
     line-height: 56px;
     /* Line height */
-    letter-spacing: 8%;
+    letter-spacing: 0.05em;
     /* Letter spacing */
     font-weight: 700;
     /* 700 font weight */
@@ -91,7 +91,7 @@ body {
     /* Font size */
     line-height: 44px;
     /* Line height */
-    letter-spacing: 8%;
+    letter-spacing: 0.05em;
     /* Letter spacing */
     font-weight: 700;
     /* 700 font weight */
@@ -102,7 +102,7 @@ body {
     /* Font size */
     line-height: 40px;
     /* Line height */
-    letter-spacing: 5%;
+    letter-spacing: 0.025rem;
     /* Letter spacing */
     font-weight: 600;
     /* semi700 font weight */
@@ -113,7 +113,7 @@ body {
     /* Font size */
     line-height: 32px;
     /* Line height */
-    letter-spacing: 5%;
+    letter-spacing: 0.025rem;
     /* Letter spacing */
     font-weight: 600;
     /* semi700 font weight */
@@ -124,7 +124,7 @@ body {
     /* Font size */
     line-height: 28px;
     /* Line height */
-    letter-spacing: 5%;
+    letter-spacing: 0.025rem;
     /* Letter spacing */
     font-weight: 600;
     /* semi700 font weight */
@@ -146,7 +146,7 @@ body {
     /* Font size */
     line-height: 28px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 400;
     /* normal font weight */
@@ -157,7 +157,7 @@ body {
     /* Font size */
     line-height: 24px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 400;
     /* normal font weight */
@@ -168,7 +168,7 @@ body {
     /* Font size */
     line-height: 20px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 400;
     /* normal font weight */
@@ -179,7 +179,7 @@ body {
     /* Font size */
     line-height: 16px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 400;
     /* normal font weight */
@@ -190,7 +190,7 @@ body {
     /* Font size */
     line-height: 28px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 600;
     /* semibold font weight */
@@ -201,7 +201,7 @@ body {
     /* Font size */
     line-height: 24px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 600;
     /* semibold font weight */
@@ -212,7 +212,7 @@ body {
     /* Font size */
     line-height: 20px;
     /* Line height */
-    letter-spacing: 3%;
+    letter-spacing: 0.02rem;
     /* Letter spacing */
     font-weight: 600;
     /* semibold font weight */
@@ -223,7 +223,7 @@ body {
     /* Font size */
     line-height: 24px;
     /* Line height */
-    letter-spacing: 1%;
+    letter-spacing: 0.015rem;
     /* Letter spacing */
     font-weight: 500;
     /* 500 font weight */
@@ -234,7 +234,7 @@ body {
     /* Font size */
     line-height: 20px;
     /* Line height */
-    letter-spacing: 1%;
+    letter-spacing: 0.015rem;
     /* Letter spacing */
     font-weight: 500;
     /* 500 font weight */
@@ -245,7 +245,7 @@ body {
     /* Font size */
     line-height: 16px;
     /* Line height */
-    letter-spacing: 1%;
+    letter-spacing: 0.015rem;
     /* Letter spacing */
     font-weight: 500;
     /* 500 font weight */
@@ -256,7 +256,7 @@ body {
     /* Font size */
     line-height: 24px;
     /* Line height */
-    letter-spacing: 5%;
+    letter-spacing: 0.025rem;
     /* Letter spacing */
 }
 
@@ -265,7 +265,7 @@ body {
     /* Font size */
     line-height: 16px;
     /* Line height */
-    letter-spacing: 5%;
+    letter-spacing: 0.025rem;
     /* Letter spacing */
 }
 
@@ -346,10 +346,14 @@ body {
     padding: 8px;
     border: 0.5px solid var(--border-neutral);
     border-radius: 5px;
-    display: flex;              /* Use flexbox */
-    align-items: center;        /* Center vertically */
-    justify-content: center;    /* Center horizontally */
-    box-sizing: border-box;     /* Include padding and border in the size */
+    display: flex;
+    /* Use flexbox */
+    align-items: center;
+    /* Center vertically */
+    justify-content: center;
+    /* Center horizontally */
+    box-sizing: border-box;
+    /* Include padding and border in the size */
 }
 
 /* primary icon button */
@@ -407,13 +411,41 @@ body {
     color: var(--error-light);
 }
 
-/* Textbox */
+/* =========================
+   Region: Textbox
+   ========================= */
 .textbox {
     background-color: white;
     border: 1px solid var(--border-neutral);
     height: 45px;
     width: 350px;
     padding: 12px;
+}
+
+.select-textbox {
+    background-color: white;
+    border: 1px solid var(--border-neutral);
+    height: 45px;
+    width: 350px;
+    padding: 10px;
+}
+
+.select-textbox:focus {
+    border: 1px solid var(--primary);
+}
+
+/* =========================
+   Region: Chip
+   ========================= */
+.status-success-chip {
+    background-color: var(--success-light);
+    color: var(--success);
+
+}
+
+.status-error-chip {
+    background-color: var(--error-light);
+    color: var(--accent-red);
 }
 
 /* =========================
@@ -673,26 +705,46 @@ body {
     position: relative;
     min-width: 400px;
     min-height: 200px;
-  }
+}
 
-  .close-button {
+.close-button {
     position: absolute;
-  }
-  
-  .modal-button-group {
+}
+
+.modal-button-group {
     display: flex;
     justify-content: end;
-  }
+}
 
-  .button-cancel {
+.button-cancel {
     border-color: var(--accent-red);
     color: var(--accent-red);
-  }
+}
 
-  .button-cancel:hover {
+.button-cancel:hover {
     border-color: var(--accent-red);
     background-color: var(--accent-red-light);
-  }
+}
+
+.modal-hr {
+    margin: 0px -25px;
+}
+
+.modal-filter-content {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 20px;
+}
+
+.reset-button {
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.reset-button:hover {
+    text-decoration: underline;
+}
+
 /* =========================
    Region: Account Form 
    ========================= */
@@ -794,4 +846,130 @@ body {
     cursor: pointer;
     text-decoration: underline;
     margin-right: 6px;
+}
+
+/* =========================
+   Region: Pagination Component
+   ========================= */
+/* Overall */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+}
+
+/* Left */
+.pagination-results {
+    color: var(--text-secondary);
+}
+
+/* Right overall */
+.pagination-page {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0px;
+}
+
+.view-selection {
+    color: var(--text-secondary);
+    background-color: var(--card-bg);
+    padding: 2px 5px;
+    border-radius: 4px 0 0 4px;
+    border: 0.2px solid var(--border-neutral);
+    height: 100%;
+}
+
+.view-selection:focus {
+    border-color: var(--primary);
+}
+
+.total-page {
+    height: 100%;
+    color: var(--text-placeholder);
+    background-color: var(--card-bg);
+    padding: 2px 5px;
+    min-width: 80px;
+    border: 0.2px solid var(--border-neutral);
+    border-left: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-navigation {
+    height: 100%;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    border: 0.2px solid var(--border-neutral);
+    border-left: none;
+    justify-content: center;
+}
+
+.button-navigation:disabled {
+    background-color: var(--neutral-light);
+    color: var(--text-primary);
+    border-left: none;
+}
+
+.button-end {
+    border-radius: 0px 4px 4px 0px;
+}
+
+/* =========================
+   Region: TABLE
+   ========================= */
+/* Textbox */
+.search-textbox {
+    background-color: white;
+    border: 1px solid var(--border-neutral);
+    height: 40px;
+    width: 350px;
+    padding: 20px 50px;
+}
+
+.search-textbox:focus {
+    outline: none;
+    border: 1px solid #0080FF;
+}
+
+/* Icon in input field */
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #A0A0A0;
+    width: 20px;
+    height: 20px;
+}
+
+.table-primary {
+    border-collapse: collapse;
+    outline: 1px solid var(--border-neutral);
+    min-width: 100%;
+}
+
+th {
+    text-align: left;
+    background-color: var(--background-light);
+    padding: 24px;
+    border-bottom: 1px solid var(--border-neutral);
+}
+
+td {
+    text-align: left;
+    background-color: var(--card-bg);
+    padding: 24px;
+    border-bottom: 1px solid var(--border-neutral);
+}
+
+hr {
+    color: var(--border-neutral);
+    padding: 0px;
+    margin: 30px 0px;
 }
