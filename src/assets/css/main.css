@@ -270,6 +270,38 @@ body {
 }
 
 /* =========================
+   Region: Breadcrumbs
+   ========================= */
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary);
+}
+
+.current-page {
+    color: #000000;
+}
+
+/* =========================
+   Region: Tab
+   ========================= */
+.tab {
+    background-color: var(--primary);
+    border-radius: 5px 5px 0 0;
+    margin-top: 40px;
+}
+
+.active-tab {
+    border-bottom: 5px solid white;
+    color: var(--card-bg);
+
+}
+
+.inactive-tab {
+    color: var(--card-bg);
+}
+
+/* =========================
    Region: Buttons
    ========================= */
 /* Large Button*/
@@ -968,8 +1000,44 @@ td {
     border-bottom: 1px solid var(--border-neutral);
 }
 
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover td {
+    background-color: var(--neutral-light);
+    cursor: pointer;
+}
+
 hr {
     color: var(--border-neutral);
     padding: 0px;
     margin: 30px 0px;
+}
+
+.empty-list-td {
+    text-align: center !important;
+    padding: 24px;
+}
+
+.sorting-th {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* =========================
+   Region: Add Update Services
+   ========================= */
+.add-update-services-form {
+    background-color: var(--card-bg);
+    min-height: 750px;
+    padding: 25px;
+}
+
+.settings-form {
+    background-color: var(--background-light);
+    padding: 15px;
+    min-height: 680px;
 }

@@ -1,9 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import MainLayout from '../../layout/MainLayout.vue';
 import FilterDialog from '../../components/FilterDialog.vue';
+import ConfirmationDialog from '../../components/ConfirmationDialog.vue'
 import Pagination from '../../components/Pagination.vue';
 
+const router = useRouter();
 const searchQuery = ref('');
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -31,9 +34,9 @@ const closeFilter = () => {
 
 // Handle applied filter 
 const applyFilter = ({ status, category }) => {
-    selectedStatus.value = status;
-    selectedCategory.value = category;
-    closeFilter();
+    selectedStatus.value = status.length ? status : ['All Status'];
+    selectedCategory.value = category.length ? category : ['All Category'];
+    closeFilter();;
 };
 
 // Search Function
@@ -41,19 +44,88 @@ const filteredServices = computed(() => {
     return services.value.filter(service => {
         const matchName = !searchQuery.value || service.name.toLowerCase().includes(searchQuery.value.toLowerCase());
 
-        const matchStatus = selectedStatus.value.length === 0 ||
-            selectedStatus.value.includes('All Status') ||
+        const matchStatus = selectedStatus.value.includes('All Status') ||
             (selectedStatus.value.includes('Active') && service.active) ||
             (selectedStatus.value.includes('Inactive') && !service.active);
 
-        const matchCategory = selectedCategory.value.length === 0 ||
-            selectedCategory.value.includes('All Category') ||
+        const matchCategory = selectedCategory.value.includes('All Category') ||
             selectedCategory.value.includes(service.category);
 
         return matchName && matchStatus && matchCategory;
     });
 });
 
+// Sorting Function
+const sortColumn = ref('');
+const sortDirection = ref('asc');
+
+const applySorting = computed(() => {
+    if (!sortColumn)
+        return filteredServices.value;
+
+    return [...filteredServices.value].sort((a, b) => {
+        let valA = a[sortColumn.value];
+        let valB = b[sortColumn.value];
+
+        if (sortColumn === 'status') {
+            valA = a.status ? 1 : 0;
+            valB = b.status ? 1 : 0;
+        }
+
+        if (sortColumn === 'price') {
+            valA = Number(valA);
+            valB = Number(valB);
+        }
+
+        if (valA < valB) return sortDirection.value === 'asc' ? -1 : 1;
+        if (valA > valB) return sortDirection.value === 'asc' ? 1 : -1;
+        return 0;
+    });
+});
+
+const sortBy = (column) => {
+    if (sortColumn.value === column) {
+        sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+    } else {
+        sortColumn.value = column;
+        sortDirection.value = 'asc';
+    }
+};
+
+// New Service
+const addServices = () => {
+    // navigation
+    router.push("/Services/AddUpdateServices");
+}
+
+
+const selectedService = ref(null);
+// Edit Services 
+const editServices = (service) => {
+    selectedService.value = service;
+    // navigation 
+}
+
+// Remove Services
+const isConfirmationVisible = ref(false);
+
+const confirmDelete = (service) => {
+    selectedService.value = service; // Store the selected service
+    isConfirmationVisible.value = true; // Show the confirmation dialog
+};
+
+const remove = () => {
+    if (selectedService.value) {
+        // Remove from list 
+        services.value = services.value.filter(service => service.name !== selectedService.value.name);
+        console.log(`Removing service: ${selectedService.value.name}`);
+
+        //Show toast notification
+
+    }
+    selectedService.value = null;
+    isConfirmationVisible.value = false;
+}
 
 // Calculate total pages based on filtered services
 const totalPages = computed(() => {
@@ -83,7 +155,7 @@ const onPageChange = (newPage) => {
                     <span>Filter</span>
                 </button>
                 <!-- Add Button -->
-                <button class="flex items-center gap-1 justify-center button-md button-primary">
+                <button class="flex items-center gap-1 justify-center button-md button-primary" @click="addServices">
                     <span class="material-icons">add</span>
                     <span>New Service</span>
                 </button>
@@ -99,16 +171,28 @@ const onPageChange = (newPage) => {
         <table class="table-primary">
             <thead class="body-text-md">
                 <tr>
-                    <th>Service Name</th>
+                    <th @click="sortBy('name')" class="sorting-th">
+                        Service Name
+                        <span class="material-icons ml-3" v-if="sortColumn === 'name'">unfold_more</span>
+                    </th>
                     <th>Category</th>
-                    <th>Price</th>
+                    <th @click="sortBy('price')" class="sorting-th">
+                        Price
+                        <span class="material-icons ml-3" v-if="sortColumn === 'price'">unfold_more</span>
+                    </th>
                     <th>Duration</th>
-                    <th>Status</th>
+                    <th @click="sortBy('status')" class="sorting-th">
+                        Status
+                        <span class="material-icons ml-3" v-if="sortColumn === 'status'">unfold_more</span>
+                    </th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody class="body-text-sm">
-                <tr v-for="service in filteredServices" :key="service.id">
+                <tr v-if="applySorting.length === 0">
+                    <td colspan="6" class="empty-list-td body2-text-md ">Empty List</td>
+                </tr>
+                <tr v-for="service in applySorting" :key="service.id">
                     <td>{{ service.name }}</td>
                     <td>{{ service.category }}</td>
                     <td>From {{ service.price }}</td>
@@ -131,17 +215,20 @@ const onPageChange = (newPage) => {
                         <button class="button-icon button-warning mr-2">
                             <span class="material-icons"> edit </span>
                         </button>
-                        <button class="button-icon button-error">
+                        <button class="button-icon button-error" @click="confirmDelete(service)">
                             <span class="material-icons "> delete </span>
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-
+        <!-- Confirmation Dialog-->
+        <ConfirmationDialog v-if="isConfirmationVisible" :isOpen="true" :title="`Remove ${selectedService?.name || ''}`"
+            message="Are you sure you want to delete this service?" @close="isConfirmationVisible = false"
+            @confirm="remove" />
         <hr />
 
-        <Pagination :total="filteredServices.length" :pageSize="pageSize" :currentPage="currentPage"
+        <Pagination :total="applySorting.length" :pageSize="pageSize" :currentPage="currentPage"
             :totalPages="totalPages" @page-change="onPageChange" />
     </MainLayout>
 </template>

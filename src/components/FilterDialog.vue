@@ -3,14 +3,8 @@ import { ref, watch } from 'vue';
 
 const props = defineProps({
   isOpen: Boolean,
-  Status: {
-    type: Array,
-    default: () => ['All Status'],
-  },
-  Category: {
-    type: Array,
-    default: () => ['All Category'],
-  },
+  Status: Array,
+  Category: Array,
 });
 
 
@@ -27,20 +21,21 @@ const applyFilter = () => {
   });
 };
 
-const availableStatus = ref(['All Status','Active', 'Inactive']);
+const availableStatus = ref(['All Status', 'Active', 'Inactive']);
 const availableCategory = ref(['All Category', 'Cleaning', 'Maintenance', 'Repair & Fixing', 'Upgrades']);
 
 // Selected values
-const selectedStatus = ref(props.Status?.length ? props.Status : ['All Status']);
-const selectedCategory = ref(props.Category?.length ? props.Category : ['All Category']);
+const selectedStatus = ref(props.Status && props.Status.length ? props.Status : ['All Status']);
+const selectedCategory = ref(props.Category && props.Category.length ? props.Category : ['All Category']);
 
 // Watch for prop changes (if parent updates the values)
 watch(() => props.Status, (newValue) => {
-  selectedStatus.value = newValue?.length ? newValue : ['All Status'];
+  selectedStatus.value = newValue && newValue.length ? newValue : ['All Status'];
 });
 watch(() => props.Category, (newValue) => {
-  selectedCategory.value = newValue?.length ? newValue : ['All Category'];
+  selectedCategory.value = newValue && newValue.length ? newValue : ['All Category'];
 });
+
 
 // clear filter 
 const clearFilter = () => {
@@ -72,12 +67,12 @@ div[role="dialog"] {
       <!--Content-->
       <div class="modal-filter-content">
         <label class="label-text-md mb-2"> Status </label>
-        <select v-model="selectedStatus" class="select-textbox" >
+        <select v-model="selectedStatus[0]" class="select-textbox">
           <option v-for="status in availableStatus" :key="status" :value="status"> {{ status }} </option>
         </select>
 
         <label class="label-text-md mt-4 mb-2"> Category </label>
-        <select v-model="selectedCategory" class="select-textbox">
+        <select v-model="selectedCategory[0]" class="select-textbox">
           <option v-for="category in availableCategory" :key="category" :value="category"> {{ category }} </option>
         </select>
       </div>
@@ -86,7 +81,7 @@ div[role="dialog"] {
       <!-- button -->
       <div class="flex justify-between items-center mt-4">
         <!-- Clear Filter -->
-        <a @click.prevent="clearFilter"  class="reset-button">Clear Filter</a>
+        <a @click.prevent="clearFilter" class="reset-button">Clear Filter</a>
         <!-- Apply button -->
         <button @click="applyFilter" class="button-sm button-primary">Apply</button>
       </div>
