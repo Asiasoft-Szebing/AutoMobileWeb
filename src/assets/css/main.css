@@ -373,8 +373,8 @@ body {
 
 /* icon button */
 .button-icon {
-    height: 35px;
-    width: 35px;
+    height: 30px;
+    width: 30px;
     padding: 8px;
     border: 0.5px solid var(--border-neutral);
     border-radius: 5px;
@@ -435,7 +435,7 @@ body {
 /* error button */
 .button-error {
     background-color: var(--error-light);
-    color: var(--accent-red);
+    color: var(--error);
 }
 
 .button-error:hover {
@@ -464,6 +464,14 @@ body {
 
 .select-textbox:focus {
     border: 1px solid var(--primary);
+}
+
+.short-textbox {
+    background-color: white;
+    border: 1px solid var(--border-neutral);
+    height: 45px;
+    width: 170px;
+    padding: 12px;
 }
 
 /* =========================
@@ -984,19 +992,21 @@ body {
     border-collapse: collapse;
     outline: 1px solid var(--border-neutral);
     min-width: 100%;
+    table-layout: fixed;
 }
 
 th {
     text-align: left;
     background-color: var(--background-light);
-    padding: 24px;
+    padding: 18px;
     border-bottom: 1px solid var(--border-neutral);
+    
 }
 
 td {
     text-align: left;
     background-color: var(--card-bg);
-    padding: 24px;
+    padding: 18px;
     border-bottom: 1px solid var(--border-neutral);
 }
 
@@ -1025,6 +1035,30 @@ hr {
     justify-content: flex-start;
     align-items: center;
     cursor: pointer;
+}
+
+.simple-table {
+    border-collapse: collapse;
+    outline: 1px solid var(--border-neutral);
+    min-width: 100%;
+}
+
+.simple-table th {
+    text-align: left;
+    background-color: var(--background-light);
+    padding: 8px 6px;
+    border-bottom: 1px solid var(--border-neutral);
+}
+
+.simple-table .th-last {
+    text-align: center;
+}
+
+.simple-table td {
+    text-align: left;
+    background-color: var(--card-bg);
+    padding: 6px;
+    border-bottom: 1px solid var(--border-neutral);
 }
 
 /* =========================

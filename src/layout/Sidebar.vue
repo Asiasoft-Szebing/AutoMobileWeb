@@ -138,7 +138,7 @@ onMounted(() => {
 const menuSections = [
     {
         title: null,
-        items: [{ name: "Dashboard", label: "Dashboard", icon: "dashboard", path:"/dashboard" }],
+        items: [{ name: "Dashboard", label: "Dashboard", icon: "dashboard", path: "/dashboard" }],
     },
     {
         title: "OPERATIONS",
@@ -156,22 +156,12 @@ const menuSections = [
                     {
                         name: "ServiceVariation",
                         label: "Service Variation",
-                        path: "/services/variation",
+                        path: "/services/serviceattributes",
                     },
                 ],
             },
-            {
-                name: "Appointment",
-                label: "Appointment",
-                icon: "calendar_month",
-                child: [
-                    {
-                        name: "AllAppointments",
-                        label: "All Appointments",
-                        path: "/appointment/appointmentlist",
-                    },
-                ],
-            },
+            { name: "Appointments", label: "Appointments", icon: "calendar_month", path: "/appointment/allappointment" },
+            { name: "Vehicles", label: "Vehicles", icon: "directions_car", path: "/vehicle/allvehicles" }
         ],
     },
 ];
