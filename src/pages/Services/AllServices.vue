@@ -141,8 +141,10 @@ const onPageChange = (newPage) => {
 <template>
     <MainLayout>
         <!-- Filter Dialog-->
-        <FilterDialog :isOpen="showFilter" :Status="selectedStatus" :Category="selectedCategory" @close="closeFilter"
-            @apply="applyFilter" />
+        <FilterDialog :isOpen="showFilter" :filters="[
+            { label: 'Status', key: 'status', options: ['All Status', 'Active', 'Inactive'], selected: ['All Status'] },
+            { label: 'Category', key: 'category', options: ['All Category', 'Cleaning', 'Repair'], selected: ['All Category'] }
+        ]" @close="closeFilter" @apply="applyFilter" />
         <!-- Main -->
         <div class="flex justify-between items-center mb-4">
             <!-- Title-->

@@ -3,8 +3,7 @@ import { ref, watch } from 'vue';
 
 const props = defineProps({
   isOpen: Boolean,
-  Status: Array,
-  Category: Array,
+  filters: Array,
 });
 
 
@@ -14,34 +13,35 @@ const handleCancel = () => {
   emit("close");
 };
 
+// Selected values
+const selectedFilters = ref({});
+
+// Initialize selected filters from props
+watch(
+  () => props.filters,
+  (newFilters) => {
+    if (Object.keys(selectedFilters.value).length === 0) {
+      // Initialize only if selectedFilters is empty
+      selectedFilters.value = newFilters.reduce((acc, filter) => {
+        acc[filter.key] = filter.selected.length ? filter.selected : [filter.options[0]];
+        return acc;
+      }, {});
+    }
+  },
+  { immediate: true } // Run on first load
+);
+
+// Apply filter
 const applyFilter = () => {
-  emit("apply", {
-    status: selectedStatus.value,
-    category: selectedCategory.value,
-  });
+  emit("apply", selectedFilters.value);
 };
 
-const availableStatus = ref(['All Status', 'Active', 'Inactive']);
-const availableCategory = ref(['All Category', 'Cleaning', 'Maintenance', 'Repair & Fixing', 'Upgrades']);
-
-// Selected values
-const selectedStatus = ref(props.Status && props.Status.length ? props.Status : ['All Status']);
-const selectedCategory = ref(props.Category && props.Category.length ? props.Category : ['All Category']);
-
-// Watch for prop changes (if parent updates the values)
-watch(() => props.Status, (newValue) => {
-  selectedStatus.value = newValue && newValue.length ? newValue : ['All Status'];
-});
-watch(() => props.Category, (newValue) => {
-  selectedCategory.value = newValue && newValue.length ? newValue : ['All Category'];
-});
-
-
-// clear filter 
+// Clear filters
 const clearFilter = () => {
-  selectedStatus.value = ['All Status'];
-  selectedCategory.value = ['All Category'];
-}
+  Object.keys(selectedFilters.value).forEach((key) => {
+    selectedFilters.value[key] = [props.filters.find((f) => f.key === key).options[0]];
+  });
+};
 </script>
 
 <style>
@@ -65,15 +65,13 @@ div[role="dialog"] {
       <!-- line -->
       <hr class="modal-hr" />
       <!--Content-->
-      <div class="modal-filter-content">
-        <label class="label-text-md mb-2"> Status </label>
-        <select v-model="selectedStatus[0]" class="select-textbox">
-          <option v-for="status in availableStatus" :key="status" :value="status"> {{ status }} </option>
-        </select>
-
-        <label class="label-text-md mt-4 mb-2"> Category </label>
-        <select v-model="selectedCategory[0]" class="select-textbox">
-          <option v-for="category in availableCategory" :key="category" :value="category"> {{ category }} </option>
+      <div v-for="filter in filters" :key="filter.key" class="modal-filter-content">
+        
+        <label class="label-text-md mb-2">{{ filter.label }}</label>
+        <select v-model="selectedFilters[filter.key][0]" class="select-textbox">
+          <option v-for="option in filter.options" :key="option" :value="option">
+            {{ option }}
+          </option>
         </select>
       </div>
       <!-- line -->

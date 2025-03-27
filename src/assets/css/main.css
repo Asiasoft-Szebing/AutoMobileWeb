@@ -47,10 +47,13 @@ body {
     --card-bg: #FFFFFF;
     --side-menu-bg: #021D3A;
 
-    /* Icon Colors */
+    /* gradient Colors */
     --gradient-red: linear-gradient(90deg, #FF8383, #FF0000);
+    --gradient-red-reverse: linear-gradient(90deg, #FF0000, #FF8383 );
     --gradient-blue: linear-gradient(90deg, #79BCFF, #0080FF);
     --gradient-blue-reverse: linear-gradient(90deg, #0080FF, #79BCFF);
+    --gradient-warning-reverse: linear-gradient(90deg, #FF8000, #FFC080);
+    --gradient-warning: linear-gradient(90deg, #FFC080, #FF8000);
     --warning-gray: #A0A0A0;
 
     /* Chart Colors */
@@ -269,6 +272,19 @@ body {
     /* Letter spacing */
 }
 
+.text-primary {
+    color: var(--accent-blue);
+}
+
+.text-error {
+    color: var(--accent-red);
+}
+
+.text-warning {
+    color: var(--accent-yellow);
+}
+
+
 /* =========================
    Region: Breadcrumbs
    ========================= */
@@ -472,6 +488,40 @@ body {
     height: 45px;
     width: 170px;
     padding: 12px;
+}
+
+.search-textbox {
+    background-color: white;
+    border: 1px solid var(--border-neutral);
+    height: 40px;
+    width: 350px;
+    padding: 20px 50px;
+}
+
+.search-textbox:focus {
+    outline: none;
+    border: 1px solid #0080FF;
+}
+
+/* Icon in input field */
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #A0A0A0;
+    width: 20px;
+    height: 20px;
+}
+
+/* For Date Picker in Dashboard*/
+.date-picker-textbox-sm {
+    display: flex;
+    height: 40px;
+    width: 200px;
+    background-color: white;
+    border: 1px solid var(--border-neutral);
+    padding: 8px;
 }
 
 /* =========================
@@ -776,6 +826,29 @@ body {
     margin: 30px 20px;
 }
 
+.modal-helper {
+    display: flex;
+    align-items: center;
+    color: var(--accent-red);
+    margin: 8px 0px;
+}
+
+.modal-selection {
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.modal-checkbox {
+    border-radius: 4px;
+    margin-right: 8px;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    border-color: var(--border-neutral);
+    background-color: var(--border-neutral);
+}
+
 .reset-button {
     color: var(--primary);
     cursor: pointer;
@@ -963,31 +1036,6 @@ body {
 /* =========================
    Region: TABLE
    ========================= */
-/* Textbox */
-.search-textbox {
-    background-color: white;
-    border: 1px solid var(--border-neutral);
-    height: 40px;
-    width: 350px;
-    padding: 20px 50px;
-}
-
-.search-textbox:focus {
-    outline: none;
-    border: 1px solid #0080FF;
-}
-
-/* Icon in input field */
-.search-icon {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #A0A0A0;
-    width: 20px;
-    height: 20px;
-}
-
 .table-primary {
     border-collapse: collapse;
     outline: 1px solid var(--border-neutral);
@@ -1000,7 +1048,7 @@ th {
     background-color: var(--background-light);
     padding: 18px;
     border-bottom: 1px solid var(--border-neutral);
-    
+
 }
 
 td {
@@ -1059,6 +1107,24 @@ hr {
     background-color: var(--card-bg);
     padding: 6px;
     border-bottom: 1px solid var(--border-neutral);
+}
+
+/* =========================
+   Region: Overview Card
+   ========================= */
+.card-primary {
+    background-color: var(--gradient-blue-reverse);
+    color: var(--card-bg);
+}
+
+.card-error {
+    background-color: var(--gradient-red-reverse);
+    color: var(--card-bg);
+}
+
+.card-warning {
+    background-color: var(--gradient-warning-reverse);
+    color: var(--card-bg);
 }
 
 /* =========================

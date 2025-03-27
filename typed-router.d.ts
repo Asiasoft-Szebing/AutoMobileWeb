@@ -22,8 +22,6 @@ declare module 'vue-router/auto-routes' {
     '/Account/Login': RouteRecordInfo<'/Account/Login', '/Account/Login', Record<never, never>, Record<never, never>>,
     '/Account/NewPassword': RouteRecordInfo<'/Account/NewPassword', '/Account/NewPassword', Record<never, never>, Record<never, never>>,
     '/Account/OTP': RouteRecordInfo<'/Account/OTP', '/Account/OTP', Record<never, never>, Record<never, never>>,
-    '/Appointment/AllAppointment': RouteRecordInfo<'/Appointment/AllAppointment', '/Appointment/AllAppointment', Record<never, never>, Record<never, never>>,
-    '/Appointment/AppointmentDetails': RouteRecordInfo<'/Appointment/AppointmentDetails', '/Appointment/AppointmentDetails', Record<never, never>, Record<never, never>>,
     '/Dashboard': RouteRecordInfo<'/Dashboard', '/Dashboard', Record<never, never>, Record<never, never>>,
     '/Services/AddServiceAttributeDialog': RouteRecordInfo<'/Services/AddServiceAttributeDialog', '/Services/AddServiceAttributeDialog', Record<never, never>, Record<never, never>>,
     '/Services/AddTermsDialog': RouteRecordInfo<'/Services/AddTermsDialog', '/Services/AddTermsDialog', Record<never, never>, Record<never, never>>,
@@ -31,6 +29,7 @@ declare module 'vue-router/auto-routes' {
     '/Services/AllServices': RouteRecordInfo<'/Services/AllServices', '/Services/AllServices', Record<never, never>, Record<never, never>>,
     '/Services/EditService': RouteRecordInfo<'/Services/EditService', '/Services/EditService', Record<never, never>, Record<never, never>>,
     '/Services/ServiceAttributes': RouteRecordInfo<'/Services/ServiceAttributes', '/Services/ServiceAttributes', Record<never, never>, Record<never, never>>,
+    '/Vehicle/AddUpdateVehicles': RouteRecordInfo<'/Vehicle/AddUpdateVehicles', '/Vehicle/AddUpdateVehicles', Record<never, never>, Record<never, never>>,
     '/Vehicle/AllVehicles': RouteRecordInfo<'/Vehicle/AllVehicles', '/Vehicle/AllVehicles', Record<never, never>, Record<never, never>>,
   }
 }

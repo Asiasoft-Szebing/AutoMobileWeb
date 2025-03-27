@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import MainLayout from '../../layout/MainLayout.vue';
 import ConfirmationDialog from '../../components/ConfirmationDialog.vue'
 import Pagination from '../../components/Pagination.vue';
+import FilterDialog from '../../components/FilterDialog.vue';
 
 const searchQuery = ref('');
 const currentPage = ref(1);
@@ -16,7 +17,27 @@ const vehiclesList = ref([
     { id: 'V00005', plateNo: 'QS 6661 A', owner: 'Adeline Kwong Shu Ling', brand: 'Honda', model: 'Civic', year: 2021, status: 'Active', servicedOn: '2020-07-30' }
 ])
 
+// Filter Function
+const selectedBrand = ref(['All Brand']);
+const selectedModel = ref(['All Model']);
+const selectedStatus = ref(['All Status']);
+const showFilter = ref(false);
 
+const openFilter = () => {
+    showFilter.value = true;
+}
+
+const closeFilter = () => {
+    showFilter.value = false;
+}
+
+// Handle applied filter 
+const applyFilter = ({ brand, model, status }) => {
+    selectedBrand.value = brand.length ? brand : ['All Brand'];
+    selectedModel.value = model.length ? model : ['All Model'];
+    selectedStatus.value = status.length ? status : ['All Status'];
+    closeFilter();;
+};
 
 
 // Search Function
@@ -24,7 +45,17 @@ const filteredVehicles = computed(() => {
     return vehiclesList.value.filter(vehicle => {
         const matchName = !searchQuery.value || vehicle.plateNo.toLowerCase().includes(searchQuery.value.toLowerCase());
 
-        return matchName;
+        const matchBrand = selectedBrand.value.includes('All Brand') ||
+            selectedBrand.value.includes(vehicle.brand);
+
+        const matchModel = selectedModel.value.includes('All Model') ||
+            selectedModel.value.includes(vehicle.model);
+
+        const matchStatus = selectedStatus.value.includes('All Status') ||
+            (selectedStatus.value.includes('Active') && vehicle.active) ||
+            (selectedStatus.value.includes('Inactive') && !vehicle.active);
+
+        return matchName && matchBrand && matchModel && matchStatus;
     });
 });
 
@@ -80,6 +111,12 @@ const sortBy = (column) => {
     }
 };
 
+// New Vehicles
+const addVehicles = () => {
+    // navigation
+    router.push("/Vehicle/AddUpdateVehicles");
+}
+
 const selectedVehicle = ref(null);
 // Edit Services 
 const editServices = (vehicle) => {
@@ -121,6 +158,12 @@ const onPageChange = (newPage) => {
 
 <template>
     <MainLayout>
+        <!-- Filter-->
+        <FilterDialog :isOpen="showFilter" :filters="[
+            {label: 'Brand', key: 'brand', options: ['All Brand', 'Toyota', 'Honda', 'Ford', 'Porsche'], selected: ['All Brand'] },
+            {label: 'Model', key: 'model', options: ['All Model', 'Corolla', 'Civic', 'Mustang'], selected: ['All Model'] },
+            { label: 'Status', key: 'status', options: ['All Status', 'Active', 'Inactive'], selected: ['All Status'] },
+        ]" @close="closeFilter" @apply="applyFilter" ></FilterDialog>
         <!-- Main -->
         <div class="flex justify-between items-center mb-4">
             <!-- Title-->
@@ -133,7 +176,7 @@ const onPageChange = (newPage) => {
                     <span>Filter</span>
                 </button>
                 <!-- Add Button -->
-                <button class="flex items-center gap-1 justify-center button-md button-primary" @click="addServices">
+                <button class="flex items-center gap-1 justify-center button-md button-primary" @click="addVehicles">
                     <span class="material-icons">add</span>
                     <span>New Vehicle</span>
                 </button>
@@ -172,7 +215,7 @@ const onPageChange = (newPage) => {
             </thead>
             <tbody class="body-text-sm">
                 <tr v-if="applySorting.length === 0">
-                    <td colspan="6" class="empty-list-td body2-text-md ">Empty List</td>
+                    <td colspan="9" class="empty-list-td body2-text-md ">Empty List</td>
                 </tr>
                 <tr v-for="vehicle in applySorting" :key="vehicle.id">
                     <td>{{ vehicle.id }}</td>
@@ -202,9 +245,9 @@ const onPageChange = (newPage) => {
         </table>
         <hr />
         <!-- Confirmation Dialog-->
-        <ConfirmationDialog v-if="isConfirmationVisible" :isOpen="true" :title="`Remove ${selectedVehicle?.plateNo || ''}`"
-            message="Are you sure you want to delete this vehicle?" @close="isConfirmationVisible = false"
-            @confirm="remove" />
+        <ConfirmationDialog v-if="isConfirmationVisible" :isOpen="true"
+            :title="`Remove ${selectedVehicle?.plateNo || ''}`" message="Are you sure you want to delete this vehicle?"
+            @close="isConfirmationVisible = false" @confirm="remove" />
 
         <Pagination :total="applySorting.length" :pageSize="pageSize" :currentPage="currentPage"
             :totalPages="totalPages" @page-change="onPageChange" />
