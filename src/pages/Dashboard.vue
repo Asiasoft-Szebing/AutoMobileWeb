@@ -65,7 +65,7 @@ const updateMetrics = (newmetrics) => {
     <div class="flex justify-between mt-15">
       <h2 class="headline-text-md"> Performance Insights</h2>
       <!-- Calendar Select Date (Modal) -->
-      <div class="date-picker-textbox-sm items-center">
+      <div class="date-picker-textbox-sm items-center w-5">
         <span class="material-icons">calendar_today</span>
         <!-- Date Range -->
         <span class="text-gray-700 text-[12px] ml-2">2025-04-01 ~ 2025-04-30</span>

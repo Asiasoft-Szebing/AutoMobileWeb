@@ -13,7 +13,8 @@ const appointmentList = ref([
         id: '00001',
         customer: 'Johnson',
         service: 'Car Wash',
-        date: "03/14/2025 09:00 AM",
+        date: "03/14/2025",
+        time: "09:00 AM",
         employee: 'Felicia Jong',
         payment: 'Paid',
         status: 'Completed'
@@ -22,7 +23,8 @@ const appointmentList = ref([
         id: '00002',
         customer: 'Mario',
         service: 'Car Service',
-        date: "03/14/2025 11:00 AM",
+        date: "03/14/2025",
+        time: "11:00 AM",
         employee: 'Bob Lee',
         payment: 'Pending',
         status: 'Completed'
@@ -31,7 +33,8 @@ const appointmentList = ref([
         id: '00003',
         customer: 'Dickson',
         service: 'Car Maintenance',
-        date: "03/14/2025 12:00 PM",
+        date: "03/14/2025 ",
+        time: "12:00 PM",
         employee: 'Anna Wong',
         payment: 'Paid',
         status: 'Completed'
@@ -40,7 +43,8 @@ const appointmentList = ref([
         id: '00004',
         customer: 'Kenny',
         service: 'Car Wash',
-        date: "03/14/2025 01:00 PM",
+        date: "03/14/2025 ",
+        time: "01:00 PM",
         employee: 'Mike Tan',
         payment: 'Unpaid',
         status: 'Completed'
@@ -49,19 +53,48 @@ const appointmentList = ref([
         id: '00005',
         customer: 'Gary',
         service: 'Car Maintenance',
-        date: "03/14/2025 04:00 PM",
+        date: "03/14/2025 ",
+        time: "04:00 PM",
         employee: 'Linda Chan',
         payment: 'Paid',
         status: 'Confirmed'
     },
-    { id: '00006', customer: 'Johnny ', service: 'Car Wash', date: '03/17/2025 09:00 AM', employee: 'Felicia Jong', payment: 'Pending', status: 'Confirmed' },
-    { id: '00007', customer: 'Joseph Lim', service: 'Oil Change, Wheel Alignment', date: '03/19/2025 09:00 AM', employee: 'Felicia Jong', payment: 'Pending', status: 'Confirmed' },
-    { id: '00008', customer: 'Jane Smith', service: 'Battery Replacement', date: '03/25/2025 11:00 AM', employee: 'Bob Lee', payment: 'Pending', status: 'Confirmed' },
-
+    {
+        id: '00006',
+        customer: 'Johnny ',
+        service: 'Car Wash', date: '03/17/2025 ',
+        time: "09:00 AM",
+        employee: 'Felicia Jong',
+        payment: 'Pending',
+        status: 'Confirmed'
+    },
+    {
+        id: '00007',
+        customer: 'Joseph Lim',
+        service: 'Oil Change, Wheel Alignment',
+        date: '03/19/2025',
+        time: "09:00 AM",
+        employee: 'Felicia Jong',
+        payment: 'Pending',
+        status: 'Confirmed'
+    },
+    {
+        id: '00008',
+        customer: 'Jane Smith',
+        service: 'Battery Replacement',
+        date: '03/25/2025 ',
+        time: "11:00 AM",
+        employee: 'Bob Lee',
+        payment: 'Pending',
+        status: 'Confirmed'
+    },
 ]);
 
 // Filter Function
-const selectedStatus = ref(['All Status']);
+const selectedAppointmentStatus = ref(['All Status']);
+const selectedPaymentStatus = ref(['All Status']);
+const selectedWorkshop = ref(['All Workshop']);
+
 const showFilter = ref(false);
 
 const openFilter = () => {
@@ -73,16 +106,28 @@ const closeFilter = () => {
 }
 
 // Handle applied filter 
-const applyFilter = ({ status, }) => {
-    selectedStatus.value = status.length ? status : ['All Status'];
+const applyFilter = ({ appointmentstatus, paymentstatus, workshop }) => {
+    selectedAppointmentStatus.value = Appointmentstatus.length ? appointmentstatus : ['All Status'];
+    selectedPaymentStatus.value = Paymentstatus.length ? paymentstatus : ['All Status'];
+    selectedWorkshop.value = Workshop.length ? workshop : ['All Workshop'];
     closeFilter();;
 };
 
 // Search Function
 const filteredAppointment = computed(() => {
-    return appointmentList.value.filter(appointmentList => {
-        const matchName = !searchQuery.value || appointmentList.customer.toLowerCase().includes(searchQuery.value.toLowerCase());
-        return matchName;
+    return appointmentList.value.filter(appointment => {
+        const matchName = !searchQuery.value || appointment.customer.toLowerCase().includes(searchQuery.value.toLowerCase());
+
+        const matchAppointmentStatus = selectedAppointmentStatus.value.includes('All Status') ||
+            selectedAppointmentStatus.value.includes(appointment.appointmentstatus);
+
+        const matchPaymentStatus = selectedPaymentStatus.value.includes('All Status') ||
+            selectedAppointmentStatus.value.includes(appointment.paymentstatus);
+
+        const matchWorkshop = selectedWorkshop.value.includes('All Workshop') ||
+            selectedWorkshop.value.includes(appointment.Workshop);
+
+        return matchName && matchAppointmentStatus && matchPaymentStatus && matchWorkshop;
     });
 });
 
@@ -151,7 +196,7 @@ const onPageChange = (newPage) => {
         <!-- Search -->
         <div class="relative my-8">
             <span class="material-icons search-icon">search</span>
-            <input type="text" class="search-textbox" placeholder="Search by service name" v-model="searchQuery">
+            <input type="text" class="search-textbox" placeholder="Search by customer name" v-model="searchQuery">
             </input>
         </div>
         <!--Table-->
@@ -182,7 +227,10 @@ const onPageChange = (newPage) => {
                     <td> {{ appointment.id }} </td>
                     <td> {{ appointment.customer }} </td>
                     <td> {{ appointment.service }} </td>
-                    <td> {{ appointment.date }} </td>
+                    <td>
+                        <p> {{ appointment.date }} </p>
+                        <p> {{ appointment.time }}</p>
+                    </td>
                     <td> {{ appointment.employee }} </td>
                     <td>
                         <span

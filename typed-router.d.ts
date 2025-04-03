@@ -28,7 +28,6 @@ declare module 'vue-router/auto-routes' {
     '/Services/AddTermsDialog': RouteRecordInfo<'/Services/AddTermsDialog', '/Services/AddTermsDialog', Record<never, never>, Record<never, never>>,
     '/Services/AddUpdateServices': RouteRecordInfo<'/Services/AddUpdateServices', '/Services/AddUpdateServices', Record<never, never>, Record<never, never>>,
     '/Services/AllServices': RouteRecordInfo<'/Services/AllServices', '/Services/AllServices', Record<never, never>, Record<never, never>>,
-    '/Services/EditService': RouteRecordInfo<'/Services/EditService', '/Services/EditService', Record<never, never>, Record<never, never>>,
     '/Services/ServiceAttributes': RouteRecordInfo<'/Services/ServiceAttributes', '/Services/ServiceAttributes', Record<never, never>, Record<never, never>>,
     '/Vehicle/AddUpdateVehicles': RouteRecordInfo<'/Vehicle/AddUpdateVehicles', '/Vehicle/AddUpdateVehicles', Record<never, never>, Record<never, never>>,
     '/Vehicle/AllVehicles': RouteRecordInfo<'/Vehicle/AllVehicles', '/Vehicle/AllVehicles', Record<never, never>, Record<never, never>>,

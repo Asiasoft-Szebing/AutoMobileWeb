@@ -291,6 +291,10 @@ body {
   color: var(--warning);
 }
 
+.text-secondary {
+  color: var(--text-secondary);
+}
+
 
 /* =========================
    Region: Breadcrumbs
@@ -473,15 +477,25 @@ body {
   background-color: white;
   border: 1px solid var(--border-neutral);
   height: 45px;
-  width: 350px;
+  min-width: 350px;
   padding: 12px;
+}
+
+.textbox:focus {
+  outline: none;
+  border: 1px solid #0080FF;
+}
+
+.textbox.has-error {
+  outline: none;
+  border: 1px solid #ff0000;
 }
 
 .select-textbox {
   background-color: white;
   border: 1px solid var(--border-neutral);
   height: 45px;
-  width: 350px;
+  min-width: 250px;
   padding: 10px;
 }
 
@@ -493,8 +507,13 @@ body {
   background-color: white;
   border: 1px solid var(--border-neutral);
   height: 45px;
-  width: 170px;
-  padding: 12px;
+  min-width: 250px;
+  padding: 10px;
+  width: 100%;
+}
+
+.short-textbox:focus {
+  border: 1px solid #0080FF;
 }
 
 .search-textbox {
@@ -508,6 +527,18 @@ body {
 .search-textbox:focus {
   outline: none;
   border: 1px solid #0080FF;
+}
+
+
+/* Icon in input field */
+.input-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #A0A0A0;
+  width: 20px;
+  height: 20px;
 }
 
 /* Icon in input field */
@@ -525,8 +556,8 @@ body {
 .date-picker-textbox-sm {
   display: flex;
   height: 40px;
-  min-width: 200px;
-  width: 210px;
+  width: 230px;
+  /* width: 100%; */
   background-color: white;
   border: 1px solid var(--border-neutral);
   padding: 8px;
@@ -641,7 +672,7 @@ body {
   background-color: var(--side-menu-bg);
   transition: all;
   transition-duration: 0.3s;
-  height: 100vh;
+  min-height: 100vh;
   width: 14rem;
 }
 
@@ -650,7 +681,7 @@ body {
   background-color: var(--side-menu-bg);
   transition: all;
   transition-duration: 0.3s;
-  height: 100vh;
+  min-height: 100vh;
   width: 5rem;
 }
 
@@ -1183,3 +1214,17 @@ hr {
   padding: 15px;
   min-height: 680px;
 }
+
+/* =========================
+   Region: Add Update Vehicles
+   ========================= */
+   .add-update-vehicles-form {
+    background-color: var(--card-bg);
+    min-height: 750px;
+    padding: 25px;
+  }
+
+  .title-backgorund {
+    background-color: var(--neutral-light);
+    padding: 20px 15px;
+  }

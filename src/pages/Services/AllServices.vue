@@ -99,12 +99,21 @@ const addServices = () => {
 }
 
 
-const selectedService = ref(null);
-// Edit Services 
 const editServices = (service) => {
-    selectedService.value = service;
-    // navigation 
+    console.log(service);
+    //selectedService.value = service;
+
+    router.push({
+        path: "/Services/AddUpdateServices",
+        query: {
+            id: service.id,
+            name: service.name,
+            category: service.category,
+            description: service.description
+        }
+    });
 }
+
 
 // Remove Services
 const isConfirmationVisible = ref(false);
@@ -214,7 +223,7 @@ const onPageChange = (newPage) => {
                         </span>
                     </td>
                     <td class="flex">
-                        <button class="button-icon button-warning mr-2">
+                        <button class="button-icon button-warning mr-2" @click="editServices(service)">
                             <span class="material-icons"> edit </span>
                         </button>
                         <button class="button-icon button-error" @click="confirmDelete(service)">

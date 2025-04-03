@@ -1,10 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import MainLayout from '../../layout/MainLayout.vue';
 import ConfirmationDialog from '../../components/ConfirmationDialog.vue'
 import Pagination from '../../components/Pagination.vue';
 import FilterDialog from '../../components/FilterDialog.vue';
 
+const router = useRouter();
 const searchQuery = ref('');
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -118,10 +120,16 @@ const addVehicles = () => {
 }
 
 const selectedVehicle = ref(null);
-// Edit Services 
-const editServices = (vehicle) => {
-    selectedVehicle.value = vehicle;
+// Edit Vehicles 
+const editVehicles = (vehicle) => {
+
     // navigation 
+    router.push({
+        path: "/Vehicle/AddUpdateVehicles",
+        query: {
+            vehicleid: vehicle.id,
+        }
+    });
 }
 
 // Remove Services
@@ -160,10 +168,10 @@ const onPageChange = (newPage) => {
     <MainLayout>
         <!-- Filter-->
         <FilterDialog :isOpen="showFilter" :filters="[
-            {label: 'Brand', key: 'brand', options: ['All Brand', 'Toyota', 'Honda', 'Ford', 'Porsche'], selected: ['All Brand'] },
-            {label: 'Model', key: 'model', options: ['All Model', 'Corolla', 'Civic', 'Mustang'], selected: ['All Model'] },
+            { label: 'Brand', key: 'brand', options: ['All Brand', 'Toyota', 'Honda', 'Ford', 'Porsche'], selected: ['All Brand'] },
+            { label: 'Model', key: 'model', options: ['All Model', 'Corolla', 'Civic', 'Mustang'], selected: ['All Model'] },
             { label: 'Status', key: 'status', options: ['All Status', 'Active', 'Inactive'], selected: ['All Status'] },
-        ]" @close="closeFilter" @apply="applyFilter" ></FilterDialog>
+        ]" @close="closeFilter" @apply="applyFilter"></FilterDialog>
         <!-- Main -->
         <div class="flex justify-between items-center mb-4">
             <!-- Title-->
@@ -233,7 +241,7 @@ const onPageChange = (newPage) => {
                     </td>
                     <td>{{ vehicle.servicedOn }}</td>
                     <td class="flex">
-                        <button class="button-icon button-warning mr-2">
+                        <button class="button-icon button-warning mr-2" @click="editVehicles(vehicle)">
                             <span class="material-icons"> edit </span>
                         </button>
                         <button class="button-icon button-error" @click="confirmDelete(vehicle)">

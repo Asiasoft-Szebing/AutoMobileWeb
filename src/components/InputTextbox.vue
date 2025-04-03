@@ -87,26 +87,3 @@ function validate(value) {
 
 </script>
 
-<style>
-.textbox:focus {
-    outline: none;
-    border: 1px solid #0080FF;
-}
-
-.textbox.has-error {
-    outline: none;
-    border: 1px solid #ff0000;
-}
-
-
-/* Icon in input field */
-.input-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #A0A0A0;
-    width: 20px;
-    height: 20px;
-}
-</style>
