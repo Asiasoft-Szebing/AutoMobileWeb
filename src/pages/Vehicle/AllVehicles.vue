@@ -245,7 +245,7 @@ const onPageChange = (newPage) => {
                             <span class="material-icons"> edit </span>
                         </button>
                         <button class="button-icon button-error" @click="confirmDelete(vehicle)">
-                            <span class="material-icons "> delete </span>
+                            <span class="material-icons"> delete </span>
                         </button>
                     </td>
                 </tr>

@@ -87,7 +87,7 @@ onMounted(() => {
         </div>
         <div class="add-update-services-form">
             <!-- General Tab  -->
-            <div v-if="activeTab === 'general'" class="grid grid-cols-12 gap-6">
+            <div v-if="activeTab === 'general'" class="grid grid-cols-12 gap-12">
                 <!-- Left -->
                 <div class="col-span-8">
                     <!-- Form Section Title-->

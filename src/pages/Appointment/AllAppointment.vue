@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue';
 import MainLayout from '../../layout/MainLayout.vue';
 import FilterDialog from '../../components/FilterDialog.vue';
+import NewAppointmentDialog from '../../components/Appointment/NewAppointmentDialog.vue';
+import UpdateAppointmentStatusDialog from '../../components/Appointment/UpdateAppointmentStatusDialog.vue';
 import Pagination from '../../components/Pagination.vue';
 
 const searchQuery = ref('');
@@ -16,8 +18,8 @@ const appointmentList = ref([
         date: "03/14/2025",
         time: "09:00 AM",
         employee: 'Felicia Jong',
-        payment: 'Paid',
-        status: 'Completed'
+        paymentstatus: 'Paid',
+        appointmentstatus: 'Completed'
     },
     {
         id: '00002',
@@ -26,8 +28,8 @@ const appointmentList = ref([
         date: "03/14/2025",
         time: "11:00 AM",
         employee: 'Bob Lee',
-        payment: 'Pending',
-        status: 'Completed'
+        paymentstatus: 'Pending',
+        appointmentstatus: 'Completed'
     },
     {
         id: '00003',
@@ -36,8 +38,8 @@ const appointmentList = ref([
         date: "03/14/2025 ",
         time: "12:00 PM",
         employee: 'Anna Wong',
-        payment: 'Paid',
-        status: 'Completed'
+        paymentstatus: 'Paid',
+        appointmentstatus: 'Completed'
     },
     {
         id: '00004',
@@ -46,8 +48,8 @@ const appointmentList = ref([
         date: "03/14/2025 ",
         time: "01:00 PM",
         employee: 'Mike Tan',
-        payment: 'Unpaid',
-        status: 'Completed'
+        paymentstatus: 'Failed',
+        appointmentstatus: 'Completed'
     },
     {
         id: '00005',
@@ -56,8 +58,8 @@ const appointmentList = ref([
         date: "03/14/2025 ",
         time: "04:00 PM",
         employee: 'Linda Chan',
-        payment: 'Paid',
-        status: 'Confirmed'
+        paymentstatus: 'Paid',
+        appointmentstatus: 'Confirmed'
     },
     {
         id: '00006',
@@ -65,8 +67,8 @@ const appointmentList = ref([
         service: 'Car Wash', date: '03/17/2025 ',
         time: "09:00 AM",
         employee: 'Felicia Jong',
-        payment: 'Pending',
-        status: 'Confirmed'
+        paymentstatus: 'Pending',
+        appointmentstatus: 'Confirmed'
     },
     {
         id: '00007',
@@ -75,8 +77,8 @@ const appointmentList = ref([
         date: '03/19/2025',
         time: "09:00 AM",
         employee: 'Felicia Jong',
-        payment: 'Pending',
-        status: 'Confirmed'
+        paymentstatus: 'Pending',
+        appointmentstatus: 'Confirmed'
     },
     {
         id: '00008',
@@ -85,8 +87,8 @@ const appointmentList = ref([
         date: '03/25/2025 ',
         time: "11:00 AM",
         employee: 'Bob Lee',
-        payment: 'Pending',
-        status: 'Confirmed'
+        paymentstatus: 'Pending',
+        appointmentstatus: 'Confirmed'
     },
 ]);
 
@@ -94,7 +96,6 @@ const appointmentList = ref([
 const selectedAppointmentStatus = ref(['All Status']);
 const selectedPaymentStatus = ref(['All Status']);
 const selectedWorkshop = ref(['All Workshop']);
-
 const showFilter = ref(false);
 
 const openFilter = () => {
@@ -107,9 +108,9 @@ const closeFilter = () => {
 
 // Handle applied filter 
 const applyFilter = ({ appointmentstatus, paymentstatus, workshop }) => {
-    selectedAppointmentStatus.value = Appointmentstatus.length ? appointmentstatus : ['All Status'];
-    selectedPaymentStatus.value = Paymentstatus.length ? paymentstatus : ['All Status'];
-    selectedWorkshop.value = Workshop.length ? workshop : ['All Workshop'];
+    selectedAppointmentStatus.value = appointmentstatus.length ? appointmentstatus : ['All Status'];
+    selectedPaymentStatus.value = paymentstatus.length ? paymentstatus : ['All Status'];
+    selectedWorkshop.value = workshop.length ? workshop : ['All Workshop'];
     closeFilter();;
 };
 
@@ -163,6 +164,32 @@ const sortBy = (column) => {
     }
 };
 
+// Add New Appointment
+const addNewAppointment = ref(false);
+
+const openAddNewAppointment = () => {
+    addNewAppointment.value = true;
+}
+
+const closeAddNewAppointment = () => {
+    addNewAppointment.value = false;
+}
+
+// Update Appointment Status
+const updateAppointmentStatus = ref(false);
+
+const openUpdateAppointmentStatus = (appointment) => {
+    if (appointment.appointmentstatus === "Completed") {
+        return;
+    }
+
+    updateAppointmentStatus.value = true;
+}
+
+const closeUpdateAppointmentStatus = () => {
+    updateAppointmentStatus.value = false;
+}
+
 // Calculate total pages based on filtered services
 const totalPages = computed(() => {
     return Math.ceil(filteredAppointment.value.length / pageSize.value);
@@ -176,6 +203,17 @@ const onPageChange = (newPage) => {
 
 <template>
     <MainLayout>
+        <!-- Filter-->
+        <FilterDialog :isOpen="showFilter" :filters="[
+            { label: 'Appointment Status', key: 'appointmentstatus', options: ['All Status', 'Cancelled', 'Closed', 'Completed', 'Confirmed', 'Not Present', 'Pending', 'Rescheduled', 'Upcooming'], selected: ['All Status'] },
+            { label: 'Payment Status', key: 'paymentstatus', options: ['All Status', 'Cancelled', 'Failed', 'Paid', 'Pending', 'Refund'], selected: ['All Status'] },
+            { label: 'Workshop', key: 'workshop', options: ['All Workshop', 'Workshop 1', 'Workshop 2'], selected: ['All Workshop'] },
+        ]" @close="closeFilter" @apply="applyFilter">
+        </FilterDialog>
+        <!-- Add New Appointment -->
+        <NewAppointmentDialog :isOpen="addNewAppointment" @close="closeAddNewAppointment" />
+        <!-- Update Appointment Status -->
+        <UpdateAppointmentStatusDialog :isOpen="updateAppointmentStatus" @close="closeUpdateAppointmentStatus" />
         <!-- Main -->
         <div class="flex justify-between items-center mb-4">
             <!-- Title-->
@@ -183,12 +221,13 @@ const onPageChange = (newPage) => {
             <!-- Button -->
             <div class="flex gap-4">
                 <!-- Filter Button -->
-                <button class="flex items-center gap-1 justify-center button-sm button-default">
+                <button class="flex items-center gap-1 justify-center button-sm button-default" @click="openFilter">
                     <span class="material-icons">filter_list</span>
                     <span>Filter</span>
                 </button>
                 <!-- Add Button -->
-                <button class="flex items-center gap-1 justify-center button-md button-primary">
+                <button class="flex items-center gap-1 justify-center button-md button-primary"
+                    @click="openAddNewAppointment">
                     <span>New Appointment</span>
                 </button>
             </div>
@@ -233,25 +272,48 @@ const onPageChange = (newPage) => {
                     </td>
                     <td> {{ appointment.employee }} </td>
                     <td>
-                        <span
-                            :class="appointment.payment ? 'status-success-chip body-text-sm' : 'status-error-chip body-text-sm'"
-                            class="px-2 py-1 rounded-sm">
-                            {{ appointment.payment ? 'Paid' : 'Failed' }}
-                        </span>
+                        <div v-if="appointment.paymentstatus === 'Paid'">
+                            <span class="status-success-chip body-text-sm px-2 py-1 rounded-md"> Paid </span>
+                        </div>
+                        <div v-if="appointment.paymentstatus === 'Failed'">
+                            <span class="status-error-chip body-text-sm px-2 py-1 rounded-md"> Failed </span>
+                        </div>
+                        <div v-if="appointment.paymentstatus === 'Pending'">
+                            <span class="status-warning-chip  body-text-sm px-2 py-1 rounded-md"> Pending </span>
+                        </div>
+                        <div v-if="appointment.paymentstatus === 'Refund'">
+                            <span class="status-default-chip body-text-sm px-2 py-1 rounded-md"> Refund </span>
+                        </div>
+                        <div v-if="appointment.paymentstatus === 'Cancelled'">
+                            <span class="status-info-chip body-text-sm px-2 py-1 rounded-md"> Cancelled </span>
+                        </div>
                     </td>
                     <td class="p-2">
-                        <span
-                            :class="appointment.status ? 'status-success-chip body-text-sm' : 'status-error-chip body-text-sm'"
-                            class="px-2 py-1 rounded-sm">
-                            {{ appointment.status ? 'Confirmed' : 'Cancelled' }}
-                        </span>
+                        <div v-if="appointment.appointmentstatus === 'Completed'">
+                            <span class="status-green-chip body-text-sm px-2 py-1 rounded-md"> Completed </span>
+                        </div>
+                        <div v-if="appointment.appointmentstatus === 'Confirmed'">
+                            <span class="status-success-chip body-text-sm px-2 py-1 rounded-md"> Confirmed </span>
+                        </div>
+                        <div v-if="appointment.appointmentstatus === 'Cancelled'">
+                            <span class="status-error-chip body-text-sm px-2 py-1 rounded-md"> Cancelled </span>
+                        </div>
+                        <div v-if="appointment.appointmentstatus === 'Pending'">
+                            <span class="status-warning-chip body-text-sm px-2 py-1 rounded-md"> Pending </span>
+                        </div>
+                        <div v-if="appointment.appointmentstatus === 'Not Present'">
+                            <span class="status-default-chip body-text-sm px-2 py-1 rounded-md"> Not Present </span>
+                        </div>
+                        <div v-if="appointment.appointmentstatus === 'Rescheduled'">
+                            <span class="status-info-chip body-text-sm px-2 py-1 rounded-md"> Rescheduled </span>
+                        </div>
                     </td>
-                    <td class="flex">
-                        <button class="button-icon button-primary mr-2">
-                            <span class="material-icons"> visibility </span>
+                    <td class="flex space-x-2 items-center h-full" style="padding: 25px;">
+                        <button class="button-icon button-icon-primary">
+                            <span class="material-symbols-outlined"> visibility </span>
                         </button>
-                        <button class="button-icon button-warning">
-                            <span class="material-icons "> edit </span>
+                        <button class="button-icon button-warning" @click="openUpdateAppointmentStatus(appointment)"  :disabled="appointment.appointmentstatus === 'Completed' ">
+                            <span class="material-symbols-outlined"> edit </span>
                         </button>
                     </td>
                 </tr>

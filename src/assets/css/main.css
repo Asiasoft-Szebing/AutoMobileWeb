@@ -572,9 +572,29 @@ body {
 
 }
 
+.status-green-chip {
+  background-color: #E2FCE8;
+  color: #134B20;
+}
+
 .status-error-chip {
   background-color: var(--error-light);
   color: var(--accent-red);
+}
+
+.status-default-chip {
+  background-color: var(--neutral-light);
+  color: #000000;
+}
+
+.status-warning-chip {
+  background-color: var(--accent-yellow-light);
+  color: var(--accent-yellow);
+}
+
+.status-info-chip {
+  background-color: var(--accent-blue-light);
+  color: var(--accent-blue);
 }
 
 /* =========================
@@ -1227,4 +1247,28 @@ hr {
   .title-backgorund {
     background-color: var(--neutral-light);
     padding: 20px 15px;
+  }
+
+  /* =========================
+   Region: Add Appointment Dialog
+   ========================= */
+  .add-appointment-modal-container {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 0.375rem;
+    position: relative;
+    min-width: 800px;
+    min-height: 400px;
+  }
+
+   /* =========================
+   Region: Update Appointment Dialog
+   ========================= */
+   .update-appointment-modal-container {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 0.375rem;
+    position: relative;
+    min-width: 450px;
+    min-height: 300px;
   }
