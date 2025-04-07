@@ -68,7 +68,8 @@ body {
    Region: Material Icon
    ========================= */
 .material-symbols-outlined {
-  font-variation-settings: 'FILL' 1; /* 1 = Filled, 0 = Outlined */
+  font-variation-settings: 'FILL' 1;
+  /* 1 = Filled, 0 = Outlined */
 }
 
 /* =========================
@@ -384,7 +385,7 @@ body {
 /* Primary Outline Button */
 .button-outline-primary {
   border-radius: 5px;
-  padding: 14px 12px;
+  padding: 8px;
   border: 0.5px solid var(--primary);
   color: var(--primary);
   background-color: transparent;
@@ -394,6 +395,23 @@ body {
   background-color: var(--primary);
   color: white;
   border: 0.5px solid var(--primary-dark);
+}
+
+/* Error Button outline*/
+.button-outline-error {
+  width: 100px;
+  height: 45px;
+  border-radius: 5px;
+  padding: 8px;
+  border: 0.5px solid var(--accent-red);
+  color: var(--accent-red);
+  background-color: transparent;
+}
+
+.button-outline-error:hover {
+  background-color: var(--accent-red);
+  color: white;
+  border: 0.5px solid var(--accent-red-light);
 }
 
 /* icon button */
@@ -1236,37 +1254,37 @@ hr {
 /* =========================
    Region: Add Update Vehicles
    ========================= */
-   .add-update-vehicles-form {
-    background-color: var(--card-bg);
-    min-height: 750px;
-    padding: 25px;
-  }
+.add-update-vehicles-form {
+  background-color: var(--card-bg);
+  min-height: 750px;
+  padding: 25px;
+}
 
-  .title-backgorund {
-    background-color: var(--neutral-light);
-    padding: 20px 15px;
-  }
+.title-backgorund {
+  background-color: var(--neutral-light);
+  padding: 20px 15px;
+}
 
-  /* =========================
+/* =========================
    Region: Add Appointment Dialog
    ========================= */
-  .add-appointment-modal-container {
-    background-color: var(--card-bg);
-    padding: 25px;
-    border-radius: 0.375rem;
-    position: relative;
-    min-width: 800px;
-    min-height: 400px;
-  }
+.add-appointment-modal-container {
+  background-color: var(--card-bg);
+  padding: 25px;
+  border-radius: 0.375rem;
+  position: relative;
+  min-width: 800px;
+  min-height: 400px;
+}
 
-   /* =========================
+/* =========================
    Region: Update Appointment Dialog
    ========================= */
-   .update-appointment-modal-container {
-    background-color: var(--card-bg);
-    padding: 25px;
-    border-radius: 0.375rem;
-    position: relative;
-    min-width: 450px;
-    min-height: 300px;
-  }
+.update-appointment-modal-container {
+  background-color: var(--card-bg);
+  padding: 25px;
+  border-radius: 0.375rem;
+  position: relative;
+  min-width: 450px;
+  min-height: 300px;
+}

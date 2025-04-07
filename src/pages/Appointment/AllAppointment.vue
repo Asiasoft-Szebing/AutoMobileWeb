@@ -1,11 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import MainLayout from '../../layout/MainLayout.vue';
 import FilterDialog from '../../components/FilterDialog.vue';
 import NewAppointmentDialog from '../../components/Appointment/NewAppointmentDialog.vue';
 import UpdateAppointmentStatusDialog from '../../components/Appointment/UpdateAppointmentStatusDialog.vue';
 import Pagination from '../../components/Pagination.vue';
 
+const router = useRouter();
 const searchQuery = ref('');
 const currentPage = ref(1);
 const pageSize = ref(10);
@@ -190,6 +192,17 @@ const closeUpdateAppointmentStatus = () => {
     updateAppointmentStatus.value = false;
 }
 
+// View Appointment
+function handleRowClick(appointment) {
+  // Navigate to the AppointmentDetails page with the item ID as a route parameter
+  router.push({
+    path: "/Appointment/AppointmentDetails",
+    query: {
+      id: appointment.id
+    }
+  });
+}
+
 // Calculate total pages based on filtered services
 const totalPages = computed(() => {
     return Math.ceil(filteredAppointment.value.length / pageSize.value);
@@ -262,7 +275,7 @@ const onPageChange = (newPage) => {
                 <tr v-if="applySorting.length === 0">
                     <td colspan="8" class="empty-list-td body2-text-md ">Empty List</td>
                 </tr>
-                <tr v-for="appointment in applySorting" :key="applySorting.id">
+                <tr v-for="appointment in applySorting" :key="applySorting.id" @click="handleRowClick(appointment)">
                     <td> {{ appointment.id }} </td>
                     <td> {{ appointment.customer }} </td>
                     <td> {{ appointment.service }} </td>
@@ -309,7 +322,7 @@ const onPageChange = (newPage) => {
                         </div>
                     </td>
                     <td class="flex space-x-2 items-center h-full" style="padding: 25px;">
-                        <button class="button-icon button-icon-primary">
+                        <button class="button-icon button-icon-primary" @click="handleRowClick(appointment)">
                             <span class="material-symbols-outlined"> visibility </span>
                         </button>
                         <button class="button-icon button-warning" @click="openUpdateAppointmentStatus(appointment)"  :disabled="appointment.appointmentstatus === 'Completed' ">
